@@ -1,0 +1,86 @@
+<main class="content logindiv mg-t-70-f loginBG">
+    <div class="container pd-y-80-f">
+        <div fxFlex="80%" fxFlex.xs="100%" class="mx-auto">
+            <div fxLayout="row" fxLayoutAlign="center center">
+                <div fxFlex="30%" fxFlex.xs="100%" fxLayoutAlign="end" fxLayoutAlign.xs="center">
+                    <div class="mx-auto pd-x-20"></div>
+                </div>
+                <!-- <div fxFlex="50%" fxHide.lt-sm>
+                    <div class="mx-auto pd-x-20">
+                        <header>
+                            <h1 class="login-heading mg-b-15-f">Start Investing Like a PRO</h1>
+                        </header><span class="span-p"><i>72PI is a premium portal for curated research and analysis on
+                                Stocks and Markets.</i></span>
+                        <ul class="content-ul">
+                            <li>
+                                <mat-icon class="with-icon ">done_all</mat-icon>Stock Screener
+                            </li>
+                            <li>
+                                <mat-icon class="with-icon ">done_all</mat-icon>Sector Signals
+                            </li>
+                            <li>
+                                <mat-icon class="with-icon ">done_all</mat-icon>Cryptocurrency Technical Analysis
+                            </li>
+                            <li>
+                                <mat-icon class="with-icon ">done_all</mat-icon>Stock Lists & Stock Analyzer
+                            </li>
+                            <li>
+                                <mat-icon class="with-icon ">done_all</mat-icon>Portfolio X-Ray Analyzer
+                            </li>
+                        </ul>
+                    </div>
+                </div> -->
+                <div fxFlex="40%" fxFlex.xs="100%" fxLayoutAlign="end" fxLayoutAlign.xs="center">
+                    <mat-card fxFlex="80%" fxFlex.xs="100%">
+                        <mat-card-content class="pd-y-10 pd-x-15">
+                            <h3 class="login-heading mg-b-10-f tx-center">Login</h3>
+                            <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="mg-t-20-f">
+                                <div *ngIf="error" class="mg-t-5-f mg-b-10-f"><span
+                                        class='red-color tx-14-f'>{{error}}</span></div>
+                                <div class="form-group">
+                                    <mat-form-field appearance="fill" fxFlex="100%">
+                                        <mat-label class='pcolor tx-14-f'>
+                                            <mat-icon style="vertical-align:baseline;">person</mat-icon>Username / Email
+                                        </mat-label><input type="text" matInput placeholder="Username / Email"
+                                            formControlName="username"
+                                            [ngClass]="{ 'is-invalid': submitted && f['username']['errors']}">
+                                        <div *ngIf="submitted && f['username']['errors']" class="invalid-feedback">
+                                            <div *ngIf="f['username']['errors']['required']"></div><span
+                                                class='red-color tx-14-f'>Enter your username/email</span>
+                                        </div>
+                                    </mat-form-field>
+                                </div>
+                                <div class="form-group">
+                                    <mat-form-field appearance="fill" fxFlex="100%">
+                                        <mat-label class="pcolor tx-14-f">
+                                            <mat-icon style="vertical-align: baseline">lock</mat-icon>Password
+                                        </mat-label><input matInput placeholder="Password"
+                                            [type]="hide ? 'password' : 'text'" formControlName="password"
+                                            [ngClass]="{ 'is-invalid': submitted && f['password']['errors']}" />
+                                        <mat-icon matSuffix (click)="hide=!hide" class="hide_icon">{{ hide ?
+                                            "visibility_off" : "visibility"}}</mat-icon>
+                                        <div *ngIf="submitted && f['password']['errors']" class="invalid-feedback">
+                                            <div *ngIf="f['password']['errors']['required']"></div><span
+                                                class="red-color tx-14-f">Enter your password</span>
+                                        </div>
+                                    </mat-form-field>
+                                </div>
+                                <div fxLayout="row" fxLayoutAlign="end center"><a [routerLink]="['/password/reset']"
+                                        class='tx-decoration tx-14-f'>Forgot password?</a></div><br>
+                                <div class="form-group" fxlayout='row' fxLayoutAlign='center center'></div><button
+                                    type="submit" mat-raised-button class="btn-login pd-xs-y-0-f">Login</button>
+                            </form>
+                            <div class="mg-t-15-f">
+                                <p class="tx-center-f tx-16-f pcolor lh-5">New User? <a routerLink="/signup"
+                                        class="tx-decoration tx-16-f">Create an account</a></p>
+                            </div>
+                        </mat-card-content>
+                    </mat-card>
+                </div>
+                <div fxFlex="30%" fxFlex.xs="100%" fxLayoutAlign="end" fxLayoutAlign.xs="center">
+                    <div class="mx-auto pd-x-20"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>

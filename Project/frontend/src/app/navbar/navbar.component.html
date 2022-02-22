@@ -1,0 +1,46 @@
+<mat-sidenav-container>
+    <mat-sidenav-content>
+        <mat-toolbar class="navbar-inverse sticky" (scroll)="onWindowScroll($event);">
+            <mat-toolbar-row class="container">
+                 <!-- <div routerLink="" class="mg-t-10-f pd-r-10-f"><img loading="lazy" alt="Logo" title="Logo"
+                        src="/assets/images/logo_color.png"></div>  -->
+                <span class="menu-spacer" style="flex: 1 1 auto;"></span>
+                    <span fxHide.lt-md>
+                        <span class="dropdown" routerLinkActive="active-tab-main">
+                            <button class="dropbtn" routerLink='/capture'>Capture</button>
+                        </span>
+                        <!-- <span class="dropdown" routerLinkActive="active-tab-main">
+                            <button class="dropbtn ">Crypto</button>
+                        </span>
+                        <span class="dropdown" routerLinkActive="active-tab-main">
+                            <button class="dropbtn ">Stocks</button>
+                        </span>
+                        <span class="dropdown" routerLinkActive="active-tab-main">
+                            <button class="dropbtn ">Screener</button>
+                        </span>
+                        <span class="dropdown" routerLinkActive="active-tab-main">
+                            <button class="dropbtn ">Portfolio Intelligence</button>
+                        </span> -->
+                    </span>
+                <span fxHide.lt-md>
+                    <span class="dropdown login-btn "
+                        *ngIf="!(LoginStatus$ | async) as LoginStatus">
+                        <button class="dropbtn mg-b-10" *ngIf="LoginStatus" routerLink='/'>Login</button>
+                    </span>
+                    <span class="dropdown"
+                        *ngIf="(LoginStatus$ | async) as LoginStatus">
+                            <div class="dropbtn profile-btn pd-r-0-f ">My Profile</div>
+                                <div class="dropdown-content profile-menu">
+                            <!-- <div style="border-bottom: 1px solid black;" class="tx-14-f pd-l-10-f"><span
+                                    class="pd-r-5-f"></span>Hi,{{userNameNavbar}}</div> -->
+                                    <span routerLinkActive="active-tab" *ngIf="LoginStatus" routerLink="/profile">Profile</span>
+                                <span routerLinkActive="active-tab" *ngIf="LoginStatus" routerLink="/change-password" (click)="subDrodown()">Change Password</span>
+                                <span routerLinkActive="active-tab" *ngIf="LoginStatus" (click)="openDialogLogOut()" (click)="subDrodown()">Log Out</span>
+                        </div>
+                    </span>
+                </span>
+            </mat-toolbar-row>
+        </mat-toolbar>
+        <router-outlet></router-outlet>
+    </mat-sidenav-content>
+</mat-sidenav-container>
