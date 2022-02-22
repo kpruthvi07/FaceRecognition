@@ -15,7 +15,7 @@ import json
 from django.views.decorators.csrf import csrf_exempt
 from django.db.models import Avg, Max, Min, Sum,Q
 import cv2
-import face_recognition as fr
+# import face_recognition as fr
 import pickle
 import datetime as dt
 import numpy as np
@@ -24,26 +24,26 @@ class CaptureImage(APIView):
     authentication_classes = [JSONWebTokenAuthentication]
     permission_classes = [IsAuthenticated]
 
-    def cropped(self,image):
-        try:
-            face_location=fr.face_locations(image)
-            top,right,bottom,left = face_location[0]
-            image=image[top:bottom,left:right]
-            return image
-        except IndexError:
-            return False
+    # def cropped(self,image):
+    #     try:
+    #         face_location=fr.face_locations(image)
+    #         top,right,bottom,left = face_location[0]
+    #         image=image[top:bottom,left:right]
+    #         return image
+    #     except IndexError:
+    #         return False
 
-    def loadImage(self,name):
-        return fr.load_image_file(name)
+    # def loadImage(self,name):
+    #     return fr.load_image_file(name)
 
-    def encode(self,image):
-        try:
-            return fr.face_encodings(image)[0]
-        except:
-            return False
+    # def encode(self,image):
+    #     try:
+    #         return fr.face_encodings(image)[0]
+    #     except:
+    #         return False
             
-    def compare(self,img1,img2):
-        return fr.compare_faces(img1,img2,tolerance=0.6)
+    # def compare(self,img1,img2):
+    #     return fr.compare_faces(img1,img2,tolerance=0.6)
 
     def turnOnCam(self):
         face_cascade=cv2.CascadeClassifier(cv2.data.haarcascades+'haarcascade_frontalface_default.xml')
@@ -65,27 +65,29 @@ class CaptureImage(APIView):
 
         cap.release() 
         cv2.destroyAllWindows()
+
+        return 'image captured'
         
-        unknown_image=self.loadImage(name)
-        unknown_image=self.cropped(unknown_image)
-        if(isinstance(unknown_image,np.ndarray)):
-            unknown_encode=self.encode(unknown_image)
-            if(isinstance(unknown_encode,np.ndarray)):
-                pickle_in=open("C:\\Users\welcome\Desktop\Online_Attendance_Management\Project\\backend\Images\dict.pickle","rb")
-                records=pickle.load(pickle_in)
+        # unknown_image=self.loadImage(name)
+        # unknown_image=self.cropped(unknown_image)
+        # if(isinstance(unknown_image,np.ndarray)):
+        #     unknown_encode=self.encode(unknown_image)
+        #     if(isinstance(unknown_encode,np.ndarray)):
+        #         pickle_in=open("C:\\Users\welcome\Desktop\Online_Attendance_Management\Project\\backend\Images\dict.pickle","rb")
+        #         records=pickle.load(pickle_in)
                 
-                result=self.compare([unknown_encode],records['N140426'])
-                return result[0]
-            else:
-                return unknown_encode
-        else:
-            return unknown_image
+        #         result=self.compare([unknown_encode],records['N140426'])
+        #         return result[0]
+        #     else:
+        #         return unknown_encode
+        # else:
+        #     return unknown_image
         
 
     def get(self,request,*args,**kwargs):
         r = self.turnOnCam()
-        if(r):
-            msg = 'face matched with ' + request.user.username
-        else:
-            msg = 'face not matched with ' + request.user.username
-        return Response({'msg':msg})
+        # if(r):
+        #     msg = 'face matched with ' + request.user.username
+        # else:
+        #     msg = 'face not matched with ' + request.user.username
+        return Response({'msg':r})
