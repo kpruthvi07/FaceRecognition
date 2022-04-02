@@ -1,0 +1,45 @@
+{% extends 'blog/base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+    {% if not user.is_authenticated %}
+        <div class="content-section" style="margin: auto; width: 400px; margin-right: 20px;margin-top: 40px;">
+            <form method="POST">
+                {% csrf_token %}
+                <fieldset class="form-group">
+                    <legend class="border-bottom mb-4">Login</legend>
+                    {{ form|crispy }}
+                </fieldset>
+                <div class="form-group">
+                    <button class="btn btn-outline-info" type="submit">Sign In</button>
+                </div>
+            </form>
+            <div class="border-top pt-3">
+                <small class="text-muted">
+                    Need An Account? <a class="ml-2" href="{% url 'register' %}">Sign Up</a>
+                    <span style="float: right;"><a  href="{% url 'reset_password' %}">Forgot Password</a></span>
+                </small>
+            </div>
+        </div>
+    {% else %}
+        {% block style %}
+        <style type="text/css">
+            h1 {
+                margin: 0 0 20px;
+                font-weight: 300;
+                font-size: 20px;
+                color: #666;
+            }
+
+
+        </style>
+        {% endblock style %}
+
+        <h1>please logout first to login again</h1>
+        <div>
+            <small class="text-muted">
+                <a href="{% url 'logout' %}">Log out</a>
+            </small>
+        </div>
+    {% endif %}
+{% endblock content %}
+
